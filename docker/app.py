@@ -2,37 +2,11 @@ import numpy as np
 import streamlit as st
 from PIL import Image
 import joblib
-from collections import Counter
-
-from sklearn.feature_extraction.text import HashingVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import IsolationForest
 import pandas as pd
-# Save Model Using Pickle
-import pandas
 from sklearn import model_selection
-from sklearn.linear_model import LogisticRegression
-import pickle
-import os, time
 import ffmpeg
-import sys
-from pprint import pprint  # for printing Python dictionaries in a human-readable way
-from pathlib import Path
-import ffmpeg
-import sys
-from pprint import pprint  # for printing Python dictionaries in a human-readable way
-from pathlib import Path
-
-from sklearn.preprocessing import LabelEncoder
-from sklearn.svm._libsvm import predict
-
-gender_nv_model = open("model.pkl", "rb")
-gender_clf = joblib.load(gender_nv_model)
-import glob
-import pathlib
 import os
 import cloudmersive_virus_api_client
-from cloudmersive_virus_api_client.rest import ApiException
 from pprint import pprint
 
 df = pd.read_csv("out.csv")
@@ -56,15 +30,14 @@ def vir(path):
     else:
         return 0
 
+def predict_video(video):
+    result = prediction(video)
+    return result
 
 def findfile(name, path):
     for dirpath, dirname, filename in os.walk(path):
         if name in filename:
             return os.path.join(dirpath, name)
-
-
-# filepath = findfile("file2.txt", "/")
-# print(filepath)
 
 df = pd.read_csv("out.csv")
 
@@ -200,7 +173,6 @@ def prediction(vid):
     avg = Average(sort2)
     new_rows['tag_bit_rate'] = categorize4(diction.get('bit_rate'))
     print(new_rows['tag_bit_rate'])
-
     list1 = list([None, '16:9', '1:1', '4:3', '25:18', '2:3' ',1048317:699424', '127:90', '27:20' , '3:2', '239:180', '259:144', '269:180', '160:77', '361:270', '237:109','427:240', '241:180', '23:16' '124:89', '33:40', '8:5', '9:16'])
     new_rows['tag_display_aspect_ratio'] = categorize(diction.get('display_aspect_ratio'), list1)
     print(new_rows['tag_display_aspect_ratio'])
@@ -208,9 +180,6 @@ def prediction(vid):
     virus = vir(path)
     new_rows["tag_virus"] = virus
 
-    # new_rows = [x for x in new_rows if type(x) == int or type(x) == float ]
-    # print(new_rows)
-    # list_f=['mode', 'ino', 'dev', 'nlink', 'uid', 'gid','size', 'atime', 'mtime', 'ctime','index','width','height','coded_width','coded_height','has_b_frames','level','refs','start_pts','duration_ts','tag_virus']
     df = pd.read_csv("out.csv")
     print(df.columns.to_list)
     real=pd.read_csv("out.csv",names=["mal"])
@@ -220,29 +189,9 @@ def prediction(vid):
     features_list = features_list[-16:-1]
     print(features_list)
     X = df[features_list].to_numpy()
-
-
-
-    # def categorize(row):
-    #     if row['mal'] == "benign":
-    #         return 0
-    #     else:
-    #         return 1
-    #
-    # df["mal"] = df.apply(lambda row: categorize(row), axis=1)
-    # print(np.stack(real["mal"]))
-    # # y=(real["mal"][0:-1])
     y = (df["mal"])
-    print(y)
-    # print(y.shape)
-    # print(X.shape)
     X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, y,test_size=0.1765, random_state=42 )
-    from sklearn.ensemble import GradientBoostingClassifier
 
-    # from sklearn.ensemble import ExtraTreesClassifier
-    # Extra_Trees = ExtraTreesClassifier(random_state=42, class_weight='balanced')
-    # # We choose our model of choice and set it's hyper parameters you can change anything
-    # Extra_Trees.fit(X_train,Y_train)
 
 
     # define input
@@ -250,54 +199,51 @@ def prediction(vid):
     print(new_input)
 
 
-    # from sklearn import neighbors
-    #
-    # knn = neighbors.KNeighborsClassifier(n_neighbors=5)
-    # knn.fit(X_train,Y_train)
-    # new_output = knn.predict([new_input])
-    # print(new_input, new_output)
+    from sklearn import neighbors
 
-    from sklearn.ensemble import HistGradientBoostingClassifier
-    Gradient_Boosting = HistGradientBoostingClassifier(random_state=42)
-    # We choose our model of choice and set it's hyper parameters you can change anything
-    Gradient_Boosting.fit(X_train, Y_train)
-    new_output = Gradient_Boosting.predict([new_input])
+    knn = neighbors.KNeighborsClassifier(n_neighbors=1)
+    knn.fit(X_train,Y_train)
+    new_output = knn.predict([new_input])
     print(new_input, new_output)
 
-    # from sklearn.ensemble import RandomForestClassifier
-    # Random_Forest =   RandomForestClassifier(n_estimators=100)
-    # Random_Forest.fit(X_train, Y_train)
-    # new_output = Random_Forest.predict([new_input])
+    # knn = neighbors.KNeighborsClassifier()
+    #
+    # from sklearn.model_selection import GridSearchCV
+    # k_range = list(range(1, 10))
+    # parameters = {"n_neighbors": k_range}
+    #
+    # # GridSearchCV is a technique for finding the optimal parameter values from a given set of parameters in a grid
+    # knn = GridSearchCV(knn, parameters)
+    # # Train Model
+    # knn.fit(X_train, Y_train)
+    # print(knn.best_params_)
+    # new_output = knn.predict([new_input])
     # print(new_input, new_output)
+    return new_output[0]
 
-def predict_gender(video):
-    result = prediction(video)
-    # return result
 
 
 def load_images(file_name):
     img = Image.open(file_name)
-    return st.image(img, width=300)
+    return st.image(img, width=200)
 
 
 def main():
-    """Gender Classifier App
-    With Streamlit
-
-  """
-
+    image = Image.open('./pictures/creating-rolling-out-effective-cyber-security-strategy.jpeg')
+    image2 = Image.open('./pictures/index.jpeg')
+    col1, mid, col2 = st.columns([1, 1, 100])
+    with col1:
+        st.image(image, width=200)
+    with mid:
+        st.image(image2, width=250)
+    # st.image(image,image2, width=200)
     st.title("Final Project ML Video")
-    html_temp = """
-  <div style="background-color:blue;padding:10px">
-  <h2 style="color:grey;text-align:center;">Streamlit App </h2>
-  </div>
 
-  """
-    st.markdown(html_temp, unsafe_allow_html=True)
+
     st.subheader("MP4 Files")
     video_file = st.file_uploader("Upload File", type=['mp4'])
     video_bytes = None
-    if st.button("Process"):
+    if st.button("Info"):
         if video_file is not None:
             file_details = {"Filename": video_file.name, "FileType": video_file.type, "FileSize": video_file.size}
             st.write(file_details)
@@ -308,14 +254,23 @@ def main():
                 video_bytes = video_file.read()
                 st.write(video_bytes)  # works
 
-    else:
-        st.subheader("About")
-        st.info("Built with Streamlit")
-        st.info("Jesus Saves @JCharisTech")
-        st.text("Jesse E.Agbe(JCharis)")
-    if st.button("Predict"):
-        video_bytes = video_file.read()
-        result = predict_gender(video_file)
 
+    if st.button("Predict"):
+        result = predict_video(video_file)
+        print(result)
+        if result == "benign":
+          prediction = "No malicious video"
+          img = 'good.png'
+        else:
+          prediction = "Malicious video"
+          img = 'bad.png'
+
+        st.success('video: {} is {}'.format(video_file.name,prediction))
+        load_images(img)
+
+
+    st.subheader("About")
+    st.info("Built with Streamlit")
+    st.info("Raz Elbaz Final Project")
 
 main()
