@@ -24,6 +24,7 @@ from pprint import pprint  # for printing Python dictionaries in a human-readabl
 from pathlib import Path
 
 from sklearn.preprocessing import LabelEncoder
+from sklearn.svm._libsvm import predict
 
 gender_nv_model = open("model.pkl", "rb")
 gender_clf = joblib.load(gender_nv_model)
@@ -222,29 +223,53 @@ def prediction(vid):
 
 
 
-    def categorize(row):
-        if row['mal'] == "benign":
-            return 0
-        else:
-            return 1
-
-    df["mal"] = df.apply(lambda row: categorize(row), axis=1)
-    print(np.stack(real["mal"]))
+    # def categorize(row):
+    #     if row['mal'] == "benign":
+    #         return 0
+    #     else:
+    #         return 1
+    #
+    # df["mal"] = df.apply(lambda row: categorize(row), axis=1)
+    # print(np.stack(real["mal"]))
     # # y=(real["mal"][0:-1])
     y = (df["mal"])
-    print(y.shape)
-    print(X.shape)
+    print(y)
+    # print(y.shape)
+    # print(X.shape)
     X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, y,test_size=0.1765, random_state=42 )
     from sklearn.ensemble import GradientBoostingClassifier
-    Gradient_Boosting = GradientBoostingClassifier(random_state=0)
-    Gradient_Boosting.fit(X_train, Y_train)
+
+    # from sklearn.ensemble import ExtraTreesClassifier
+    # Extra_Trees = ExtraTreesClassifier(random_state=42, class_weight='balanced')
+    # # We choose our model of choice and set it's hyper parameters you can change anything
+    # Extra_Trees.fit(X_train,Y_train)
+
+
     # define input
     new_input = list(new_rows.values())[-15:]
     print(new_input)
-    # get prediction for new input
+
+
+    # from sklearn import neighbors
+    #
+    # knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+    # knn.fit(X_train,Y_train)
+    # new_output = knn.predict([new_input])
+    # print(new_input, new_output)
+
+    from sklearn.ensemble import HistGradientBoostingClassifier
+    Gradient_Boosting = HistGradientBoostingClassifier(random_state=42)
+    # We choose our model of choice and set it's hyper parameters you can change anything
+    Gradient_Boosting.fit(X_train, Y_train)
     new_output = Gradient_Boosting.predict([new_input])
     print(new_input, new_output)
-    print(new_output)
+
+    # from sklearn.ensemble import RandomForestClassifier
+    # Random_Forest =   RandomForestClassifier(n_estimators=100)
+    # Random_Forest.fit(X_train, Y_train)
+    # new_output = Random_Forest.predict([new_input])
+    # print(new_input, new_output)
+
 def predict_gender(video):
     result = prediction(video)
     # return result
