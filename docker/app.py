@@ -9,7 +9,7 @@ import os
 import cloudmersive_virus_api_client
 from pprint import pprint
 import plotly.express as px
-
+import plotly.graph_objects as go
 df = pd.read_csv("out.csv")
 
 
@@ -220,9 +220,9 @@ def main():
     image2 = Image.open('./pictures/index.jpeg')
     col1, mid, col2 = st.columns([1, 1, 100])
     with col1:
-        st.image(image, width=250)
+        st.image(image, width=150)
     with mid:
-        st.image(image2, width=250)
+        st.image(image2, width=150)
     # st.image(image,image2, width=200)
     st.title("Final Project ML Video")
 
@@ -264,7 +264,7 @@ def main():
     # https://www.geeksforgeeks.org/python-plotly-tutorial/#Bar
     st.subheader("Data Visualization")
     df = pd.read_csv("out.csv")
-    charts = st.selectbox("charts", [None,'Bubble charts : mal','Bubble charts : virus','Bar Chart : r_frame_rate'])
+    charts = st.selectbox("charts", [None,'Bubble charts : mal','Bubble charts : virus','Bar Chart : r_frame_rate','Pie Charts : tag_Offset','Pie Charts : tag_virus','Pie Charts : mal','Scatter Plot : bit_rate'])
     if charts=='Bubble charts : mal':
         fig = px.scatter(df, x="mal",color="mal")
         st.plotly_chart(fig)
@@ -274,8 +274,20 @@ def main():
     elif charts=='Bar Chart : r_frame_rate':
         fig = px.bar(df, x="r_frame_rate")
         st.plotly_chart(fig)
+    elif charts=='Pie Charts : tag_Offset':
+        fig=px.pie(df, names="tag_Offset")
+        st.plotly_chart(fig)
+    elif charts=='Pie Charts : tag_virus':
+        fig=px.pie(df, names="tag_virus")
+        st.plotly_chart(fig)
+    elif charts=='Pie Charts : mal':
+        fig=px.pie(df, names="mal")
+        st.plotly_chart(fig)
+    elif charts == 'Scatter Plot : bit_rate':
+        fig = px.scatter(df, y="bit_rate")
+        st.plotly_chart(fig)
 
-    print(df.columns)
+    # print(df.columns)
 
 
 
