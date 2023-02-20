@@ -8,6 +8,7 @@ import ffmpeg
 import os
 import cloudmersive_virus_api_client
 from pprint import pprint
+import plotly.express as px
 
 df = pd.read_csv("out.csv")
 
@@ -205,27 +206,13 @@ def prediction(vid):
     knn.fit(X_train,Y_train)
     new_output = knn.predict([new_input])
     print(new_input, new_output)
-
-    # knn = neighbors.KNeighborsClassifier()
-    #
-    # from sklearn.model_selection import GridSearchCV
-    # k_range = list(range(1, 10))
-    # parameters = {"n_neighbors": k_range}
-    #
-    # # GridSearchCV is a technique for finding the optimal parameter values from a given set of parameters in a grid
-    # knn = GridSearchCV(knn, parameters)
-    # # Train Model
-    # knn.fit(X_train, Y_train)
-    # print(knn.best_params_)
-    # new_output = knn.predict([new_input])
-    # print(new_input, new_output)
     return new_output[0]
 
 
 
 def load_images(file_name):
     img = Image.open(file_name)
-    return st.image(img, width=200)
+    return st.image(img, width=150)
 
 
 def main():
@@ -233,7 +220,7 @@ def main():
     image2 = Image.open('./pictures/index.jpeg')
     col1, mid, col2 = st.columns([1, 1, 100])
     with col1:
-        st.image(image, width=200)
+        st.image(image, width=250)
     with mid:
         st.image(image2, width=250)
     # st.image(image,image2, width=200)
@@ -242,8 +229,12 @@ def main():
 
     st.subheader("MP4 Files")
     video_file = st.file_uploader("Upload File", type=['mp4'])
-    video_bytes = None
-    if st.button("Info"):
+
+    # checkbox
+    # check if the checkbox is checked
+    # title of the checkbox is 'Show/Hide'
+    if st.checkbox("Video Info"):
+        # display the text if the checkbox returns True value
         if video_file is not None:
             file_details = {"Filename": video_file.name, "FileType": video_file.type, "FileSize": video_file.size}
             st.write(file_details)
@@ -254,23 +245,42 @@ def main():
                 video_bytes = video_file.read()
                 st.write(video_bytes)  # works
 
-
     if st.button("Predict"):
         result = predict_video(video_file)
         print(result)
         if result == "benign":
-          prediction = "No malicious video"
           img = 'good.png'
+          st.success('The video: {}  is not a malicious video'.format(video_file.name))
         else:
-          prediction = "Malicious video"
-          img = 'bad.png'
 
-        st.success('video: {} is {}'.format(video_file.name,prediction))
+          img = 'bad.png'
+          st.warning('The video: {}  is a malicious video'.format(video_file.name))
+
+
         load_images(img)
 
 
+
+    # https://www.geeksforgeeks.org/python-plotly-tutorial/#Bar
+    st.subheader("Data Visualization")
+    df = pd.read_csv("out.csv")
+    charts = st.selectbox("charts", [None,'Bubble charts : mal','Bubble charts : virus','Bar Chart : r_frame_rate'])
+    if charts=='Bubble charts : mal':
+        fig = px.scatter(df, x="mal",color="mal")
+        st.plotly_chart(fig)
+    elif charts == 'Bubble charts : virus':
+        fig = px.scatter(df, y="tag_virus", color="tag_virus")
+        st.plotly_chart(fig)
+    elif charts=='Bar Chart : r_frame_rate':
+        fig = px.bar(df, x="r_frame_rate")
+        st.plotly_chart(fig)
+
+    print(df.columns)
+
+
+
     st.subheader("About")
-    st.info("Built with Streamlit")
     st.info("Raz Elbaz Final Project")
+    st.info("Link to the project:  "+ "https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video")
 
 main()
