@@ -18,6 +18,7 @@ RUN pip install pandas
 RUN pip install plotly
 RUN pip install Pillow
 RUN pip install pprintpp
+RUN pip install ffmpeg
 ADD . /app
 
 COPY . /app
