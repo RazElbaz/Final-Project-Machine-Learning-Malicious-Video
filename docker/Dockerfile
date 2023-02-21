@@ -12,8 +12,14 @@ RUN pip install sklearn
 RUN pip install streamlit
 RUN pip install Image
 RUN pip install -U scikit-learn
+RUN pip install ffmpeg-python
+RUN pip install git+https://github.com/Cloudmersive/Cloudmersive.APIClient.Python.Virus.git
+RUN pip install pandas
+RUN pip install plotly
+RUN pip install Pillow
+RUN pip install pprintpp
 ADD . /app
-EXPOSE 8501
-COPY . /app
 
+COPY . /app
+EXPOSE 8501
 CMD streamlit run app.py
