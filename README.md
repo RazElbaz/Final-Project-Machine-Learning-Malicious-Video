@@ -9,6 +9,8 @@ The subject of my final project in the Cyber Attack Detection Methods course is 
 
 With the advancement of technology, new malware technologies and ways to carry out  attacks are emerging.
 MP4 is the most common video file format due to the fact that it provides high-quality video in a relatively small size compared to other video formats, and provides lossless compression after editing and re-saving the files. Video files are not generally considered malicious file types, but it is possible for malware to be embedded in a video file or disguised as a video file. Therefore, MP4 is considered a good candidate for embedding video malware. 
+
+#### MP4
 The data in an MP4 file is divided into two parts:
 (1) the media-related data: includes streams of video, audio, and subtitles; 
 (2) metadata: specifies information about the original data which assists in identifying the nature and features of that data and making it easier to use, search, and manage the video such as flags, timestamps, bit rate and so forth.
