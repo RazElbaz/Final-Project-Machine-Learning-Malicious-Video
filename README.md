@@ -16,17 +16,6 @@ To run the app: streamlit run app.py
 ### view my Streamlit app in your browser press on the Local URL:
 ![run](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png)
 
-### The app:
-
-![app](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/sreamlit_app.png)
-
-
-![mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/mal_video.png)
-
-![not_mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/not_mal_video.png)
-
-
-
 ### To run with docker:
 1) Building a Docker image:
 docker build -t streamlitapp:latest .
@@ -40,4 +29,20 @@ docker run -p 8501:8501 streamlitapp:latest
 ### Docker run:
 
 ![dockerrun](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/docker_run.png)
+
+### The app:
+
+![app](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/sreamlit_app.png)
+
+## Malicious video
+
+![mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/mal_video.png)
+
+## Not a malicious video
+
+![not_mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/not_mal_video.png)
+
+
+
+
 
