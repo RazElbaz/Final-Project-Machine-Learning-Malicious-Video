@@ -24,15 +24,15 @@ The dataset in this paper will be 333 videos in MP4 format. Since there is a sho
 
 
 
-To run the app: streamlit run app.py
+To run the app: `streamlit run app.py`
 ### view my Streamlit app in your browser press on the Local URL:
 ![run](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png)
 
 ### To run with docker:
 1) Building a Docker image:
-docker build -t streamlitapp:latest .
+`docker build -t streamlitapp:latest .`
 2) Creating a container:
-docker run -p 8501:8501 streamlitapp:latest
+`docker run -p 8501:8501 streamlitapp:latest`
 
 ### Docker build:
 
