@@ -57,6 +57,7 @@ To run the app: `streamlit run app.py`
 ## Data Visualization
 
 ![chart1](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/data_chart.png)
-![chart2](![chart1](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/data_chart.png))
+
+![chart2](![chart1](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/data_chart.png)
 
 
