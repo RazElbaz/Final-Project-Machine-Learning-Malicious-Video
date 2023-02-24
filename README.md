@@ -30,6 +30,7 @@ The dataset in this paper will be 333 videos in MP4 format. Since there is a sho
 
 ### view my Streamlit app in your browser press on the Local URL:
 To run the app: `streamlit run app.py`
+
 ![run](https://github.com/RazElbaz/Task-1-Anomaly-detection/blob/main/images/run.png)
 
 ### To run with docker:
