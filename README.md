@@ -51,15 +51,15 @@ To run the app: `streamlit run app.py`
 
 ![app](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/sreamlit_app.png)
 
-## Malicious video
+### Malicious video
 
 ![mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/mal_video.png)
 
-## Not a malicious video
+### Not a malicious video
 
 ![not_mal_video](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/not_mal_video.png)
 
-## Data Visualization
+### Data Visualization
 
 ![chart1](https://github.com/RazElbaz/Final-Project-Machine-Learning-Malicious-Video/blob/main/pictures/data_chart.png)
 
