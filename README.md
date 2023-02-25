@@ -12,8 +12,8 @@ MP4 is the most common video file format due to the fact that it provides high-q
 
 #### MP4
 The data in an MP4 file is divided into two parts:
-(1) the media-related data: includes streams of video, audio, and subtitles; 
-(2) metadata: specifies information about the original data which assists in identifying the nature and features of that data and making it easier to use, search, and manage the video such as flags, timestamps, bit rate and so forth.
+- the media-related data: includes streams of video, audio, and subtitles; 
+- metadata: specifies information about the original data which assists in identifying the nature and features of that data and making it easier to use, search, and manage the video such as flags, timestamps, bit rate and so forth.
 
 #### Where can malicious content be found?
 Damage in the video may be in 3 possible places: header, video data and end of file, therefore these will be part of our tests.
