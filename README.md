@@ -19,7 +19,7 @@ The data in an MP4 file is divided into two parts:
 Damage in the video may be in 3 possible places: header, video data and end of file, therefore these will be part of our tests.
 
 ### Dataset
-warning! Some of the videos contain content that may harm your computer, download them in a virtual machine.
+** Warning! ** Some of the videos contain content that may harm your computer, download them in a virtual machine.
 
 Link to dataset: https://1drv.ms/u/s!ApgPVNBNwhrXgyPPPamaCsgf8H2u?e=9BrWyf
 
